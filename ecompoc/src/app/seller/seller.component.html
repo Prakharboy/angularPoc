@@ -1,0 +1,81 @@
+
+
+<h2>HELLO SELLER!</h2>
+
+
+<h3>List OF products</h3>
+<div id ="cardContainer"  *ngIf="product$">
+
+  <ul>
+    <li fxFlex *ngFor="let p of product$ | async ">
+      <mat-card  >
+        <mat-card-header>
+          <mat-card-title>{{p.name}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="https://source.unsplash.com/random/800x600">
+        <mat-card-content>
+          <p>price:{{p.price}}.</p>
+        </mat-card-content>
+        
+      </mat-card>
+    </li>
+  </ul>
+</div>
+
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;  let i= index"
+    [ngClass]="{'highlight': selectedRowIndex == row.position}"
+    (click)="highlight(row, i)"
+    tabindex="999"
+    (keydown.arrowdown)="arrowDownEvent(row, selectedRowIndex)"
+    (keydown.arrowup)="arrowUpEvent(row, selectedRowIndex)"></tr>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+
+
+
+  <h2>ADD A PRODUCT</h2>
+
+<input type="text" placeholder="product name" #productname> <br>
+<input type="text" placeholder="product type" #producttype> <br>
+<input type="text" placeholder="product price" #productprice> <br>
+
+
+
+<button (click)="addProduct(productname.value,producttype.value,productprice.value)"  >  ADD PRODUCT </button>
+
+<button (click)="getProduct()">getProduct</button>

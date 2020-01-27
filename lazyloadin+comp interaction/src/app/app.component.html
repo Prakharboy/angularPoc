@@ -1,0 +1,17 @@
+<router-outlet></router-outlet>
+
+<app-read-user></app-read-user>
+
+<app-add-user></app-add-user>
+
+<h1>message received from child is 
+  {{message}}
+</h1>
+
+
+<app-compone [aliasmessagefromparent]="sendgreetingtochild"  (messageEvent)="receiveMessage($event)"></app-compone>
+
+<app-comp></app-comp>
+<h2>message received viewchild from child {{message1}}</h2>
+
+<button (click)="gotocomp2()">gotocomp2</button>

@@ -1,0 +1,28 @@
+.mat-card{
+    background-color: red;
+    max-width: 200px;
+    border: 1px solid black;
+    margin: 4px;
+
+
+}
+
+.mat-card-image{
+    background-size: cover;
+}
+
+#cardContainer
+{
+    height: 500px;
+    width: 1000px;
+    border: solid black 2px;
+    flex-wrap: wrap;
+    display: flex;
+   
+
+}
+
+li {
+    list-style-type: none;
+
+}

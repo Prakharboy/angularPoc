@@ -1,0 +1,14 @@
+<p>read-user works!</p>
+
+<div  *ngIf="user$">
+
+    <h3>List OF Users</h3>
+    <ul>
+      <li *ngFor="let u of user$ | async ">
+    {{ u.id }} here
+      </li>
+    </ul>
+  
+    <h2>here2</h2>
+    <button (click)="getStore()">getstore</button>
+  </div>
