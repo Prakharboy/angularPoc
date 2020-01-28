@@ -1,26 +1,34 @@
 package com.cgi.ecom.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigInteger;
 
+@Entity
 public class Product {
-    String id;
+
+
+    @Id
+    @GeneratedValue()
+    long id;
     String name;
     String type;
     BigInteger price;
-    double rating;
 
-    public Product(String id, String name, String type, BigInteger price, double rating) {
+
+    public Product(long id, String name, String type, BigInteger price) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.price = price;
-        this.rating = rating;
+
     }
 
     public Product() {
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -36,11 +44,8 @@ public class Product {
         return price;
     }
 
-    public double getRating() {
-        return rating;
-    }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -56,7 +61,5 @@ public class Product {
         this.price = price;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
+
 }

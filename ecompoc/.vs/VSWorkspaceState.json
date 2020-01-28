@@ -8,6 +8,6 @@
     "\\src\\app\\models",
     "\\src\\app\\seller"
   ],
-  "SelectedNode": "\\src\\styles.css",
+  "SelectedNode": "\\src\\app\\login-module\\login\\login.component.ts",
   "PreviewInSolutionExplorer": false
 }

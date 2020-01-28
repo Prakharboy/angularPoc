@@ -22,10 +22,17 @@ export class LoginComponent implements OnInit {
 
   }
 
+  addUser(name,password,role)
+  {
+    this.loginService.addUser(name,password,role).subscribe(data=>{console.log(data)});
+  }
+
   doLogin(id,password)
   {
+     
 
     this.loginService.doLogin(id,password).subscribe(data =>{
+    localStorage.setItem('token', data);
      const helper = new JwtHelperService();
 
 const decodedToken = helper.decodeToken(data.token);

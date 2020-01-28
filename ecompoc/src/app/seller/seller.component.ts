@@ -1,12 +1,14 @@
 import { OnInit } from '@angular/core';
 import {Component, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {ProductService} from './../product.service'
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import {select, Store} from '@ngrx/store';
 import { AppState } from './../app.state';
 import * as ProductActions from './../actions/product.actions'
+import { MatSortModule, } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material'; 
 
 @Component({
   selector: 'app-seller',
@@ -27,6 +29,14 @@ export class SellerComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  
+  goToPage = null;
+  updateGoToPage() {
+
+    this.paginator.pageIndex = this.goToPage - 1;
+  }
+
+
   product$: Observable<Product[]>;
   public temp:any;
 
@@ -40,7 +50,7 @@ export class SellerComponent implements OnInit {
     this.product$ =  store.pipe(select('product'));
     console.log('got products'+this.product$)
 
-    this.getProuct();
+    this.getProducts();
   }
 
 
@@ -74,10 +84,11 @@ export class SellerComponent implements OnInit {
 
   }
 
-  getProuct()
+  getProducts()
   {
-  this.productService.getProuct().subscribe(data=>{
+  this.productService.getProducts().subscribe(data=>{
     this.dataSource=new MatTableDataSource(data);
+    console.log("received product"+data);
   });
   }
 

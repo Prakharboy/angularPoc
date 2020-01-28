@@ -11,6 +11,14 @@ import { AuthGuardService } from './auth-guard.service';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/product.reducer';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import {MatTableModule} from '@angular/material'
+import {MatSortModule} from '@angular/material'
+import {MatPaginatorModule} from '@angular/material'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+
+
 
 
 import {
@@ -32,10 +40,17 @@ import {
     BrowserModule,
     FlexLayoutModule,
     MatButtonModule,
+    MatFormFieldModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
+    FormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule,
+    MatInputModule,
     AppRoutingModule,
     LoginModuleModule,
     StoreModule.forRoot({

@@ -7,3 +7,17 @@
 
 
 <button  (click)="doLogin(id.value,password.value)" >LOGIN</button>
+
+
+<h2>Register</h2>
+
+<input type="text" placeholder="enter id to register" #rid>
+
+<input type="text" placeholder="enter ROLE to register" #role>
+
+<input type="password" placeholder="enter password to register" #rpassword>
+
+
+
+
+<button  (click)="addUser(rid.value,rpassword.value,role.value)" >register</button>

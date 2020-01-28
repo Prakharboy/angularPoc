@@ -16,6 +16,16 @@ export class LoginService {
    }
 
 
+   addUser(name,password,role)
+   {
+    this.loginDao = {
+id:name,
+password : password,
+role:role
+  };
+  return this.http.post('http://localhost:8012/saveUser',this.loginDao);
+   }
+
   doLogin(id, password) :Observable<any>
   {
     this.canRoute=false;
