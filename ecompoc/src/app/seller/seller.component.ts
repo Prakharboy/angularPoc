@@ -18,68 +18,82 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 export class SellerComponent implements OnInit {
 
 
-   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-    applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
+  
 
   
-  goToPage = null;
-  updateGoToPage() {
 
-    this.paginator.pageIndex = this.goToPage - 1;
-  }
+ 
 
 
   product$: Observable<Product[]>;
   public temp:any;
 
   displayedColumns = ['name', 'type', 'price'];
-  dataSource: MatTableDataSource<Product>;
+  public dataSource;
 
-  @ViewChild(MatPaginator,{static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort,{static: true}) sort: MatSort;
+   @ViewChild(MatPaginator,{static: true}) paginator: 
+    MatPaginator;
+    @ViewChild(MatSort,{static: true}) sort: MatSort;
+
+    
+
+
+ ngOnInit() {
+ this.getProducts();
+      
+    }    
+public applyFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  goToPage = null;
+updateGoToPage() {
+
+    this.paginator.pageIndex = this.goToPage - 1;
+  }
+
+  check()
+  {
+    return true;
+  }
+
+  selectedRowIndex=0;
+
+ highlight(index: number){
+     if(index >= 0 && index <= this.dataSource.length - 1)
+        this.selectedRowIndex = index;
+    console.log(this.selectedRowIndex);
+  } 
+
+   arrowUpEvent(index: number){
+    this.highlight(index - 1);
+       console.log(this.selectedRowIndex);
+  }
+
+  arrowDownEvent(index: number){
+    console.log(index);
+     this.highlight(index + 1);
+        console.log(this.selectedRowIndex);
+  }
+
+
+ 
 
   constructor(private store: Store< {product:Product[]}>,private productService :ProductService) { 
     this.product$ =  store.pipe(select('product'));
     console.log('got products'+this.product$)
 
-    this.getProducts();
+    
   }
 
 
-  ngOnInit() {
-  }
 
-  selectedRowIndex: any;
-
-
-    highlight(row: any){
-    this.selectedRowIndex = row.position;
-    console.log(this.selectedRowIndex);
-  }
-
-   arrowUpEvent(row: object, index: number){
-     console.log(index);
-    var nextrow = this.dataSource[index - 2];
-    this.highlight(nextrow);
-  }
-
-  arrowDownEvent(row: object, index: number){
-    console.log(index);
-    var nextrow = this.dataSource[index];
-     this.highlight(nextrow);
-  }
   addProduct(name,type,price)
   {
 
     this.store.dispatch(new ProductActions.AddProduct({name: name, type:type,price:price}) )
+
+    this.productService.addProduct(name,type,price).subscribe(data=>{console.log(data)});
   
 
   }
@@ -88,6 +102,8 @@ export class SellerComponent implements OnInit {
   {
   this.productService.getProducts().subscribe(data=>{
     this.dataSource=new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+       this.dataSource.sort = this.sort;
     console.log("received product"+data);
   });
   }

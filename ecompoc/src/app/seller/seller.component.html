@@ -22,54 +22,48 @@
   </ul>
 </div>
 
-<div class="example-header">
+<div>
+
+<div>
   <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div>
+<table mat-table [dataSource] = "dataSource" matSort > 
+   <ng-container matColumnDef = "name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name</th>
+      <td mat-cell *matCellDef = "let element"> {{element.name}} </td>
+   </ng-container>
+   <ng-container matColumnDef = "type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+      <td mat-cell *matCellDef = "let element"> {{element.type}} </td>
+   </ng-container>
+   <ng-container matColumnDef = "price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+      <td mat-cell *matCellDef = "let element"> {{element.price}} </td>
+   </ng-container>
+   
 
-<div class="example-container mat-elevation-z8">
-
-  <mat-table [dataSource]="dataSource" matSort>
-
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-    </ng-container>
-
-    
-    <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.type}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;  let i= index"
-    [ngClass]="{'highlight': selectedRowIndex == row.position}"
-    (click)="highlight(row, i)"
+   <tr mat-header-row *matHeaderRowDef = "displayedColumns"></tr>
+   <tr mat-row *matRowDef = "let row; columns: displayedColumns;  let i= index"
+    [ngClass]="{'highlight': selectedRowIndex == i}"
+    (click)="highlight(i)"
     tabindex="999"
-    (keydown.arrowdown)="arrowDownEvent(row, selectedRowIndex)"
-    (keydown.arrowup)="arrowUpEvent(row, selectedRowIndex)"></tr>
-  </mat-table>
+    (keydown.arrowdown)="arrowDownEvent(selectedRowIndex)"
+    (keydown.arrowup)="arrowUpEvent(selectedRowIndex)"></tr>
+</table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-
-  <mat-form-field>
+<mat-form-field>
    <input matInput [(ngModel)]="goToPage">
 </mat-form-field>
 <button (click)="updateGoToPage()">Go</button>
+
+
+  <mat-paginator  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
 
 
-<!-- Copyright 2018 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
+
 
 
 

@@ -65,9 +65,13 @@ public class ProductController {
     }
 
     @GetMapping("/getProducts")
-    public List<Product> getProducts()
+    public ResponseEntity<?> getProducts()
     {
-        return productService.getProducts();
+        ResponseEntity responseEntity;
+        System.out.println("get products called");
+        responseEntity = new ResponseEntity<List<Product>>(productService.getProducts(),HttpStatus.OK);
+
+        return  responseEntity;
     }
 
 

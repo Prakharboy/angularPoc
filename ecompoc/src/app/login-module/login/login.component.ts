@@ -32,10 +32,11 @@ export class LoginComponent implements OnInit {
      
 
     this.loginService.doLogin(id,password).subscribe(data =>{
-    localStorage.setItem('token', data);
+    localStorage.setItem('token', data.token);
      const helper = new JwtHelperService();
 
 const decodedToken = helper.decodeToken(data.token);
+console.log("token is"+data.token)
       if(decodedToken.authorities[0].authority==='ROLE_buyer')
       {
         this.loginService.canRoute=true;
